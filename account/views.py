@@ -13,7 +13,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Welcom to Saturn')
+                    return HttpResponse('Welcome to Saturn')
                 else:
                     return HttpResponse('The account is disabled')
             else: 
