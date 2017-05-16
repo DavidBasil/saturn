@@ -13,9 +13,14 @@ from . import views
 
 
 urlpatterns = [
-    # url(r'^login/$', views.user_login, name='login'),
+    # login/logout
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^logout-then-login', logout_then_login, name='logout_then_login'),
+    # password change
+    url(r'^password-change/$', password_change, name='password_change'),
+    url(r'^password-change/done/$', password_change_done, 
+                                    name='password_change_done'),
+    # dashboard
     url(r'^$', views.dashboard, name='dashboard'),
 ]
