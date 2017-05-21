@@ -5,22 +5,28 @@ Log in
 {% endblock %}
 
 {% block content %}
-<!-- form errors -->
-{% if form.errors %}
-<p>Your username and password didn't match, try again.</p>
-{% else %}
-<h2>Log In</h2>
-<!-- login form -->
-<div class="login-form">
-	<form action="{% url 'login' %}" method="post">
-		{{ form.as_p }}
-		{% csrf_token %}	
-		<input type="hidden" name="text" value="{{ next }}" />
-		<input type="submit" value="Log-in" />
-	</form>	
-</div>
-{% endif %}
 
+	<!-- form errors -->
+	{% if form.errors %}
+		<p>Your username and password didn't match, try again.</p>
+	{% else %}
+
+		<h2>Log In</h2>
+		<!-- login form -->
+		<div class="login-form">
+			<form action="{% url 'login' %}" method="post">
+				{{ form.as_p }}
+				{% csrf_token %}	
+				<input type="hidden" name="text" value="{{ next }}" />
+				<input type="submit" value="Log-in" />
+			</form>	
+			<!-- password reset link -->
+			<p>
+				<a href="{% url 'password_reset' %}">Reset your password</a>
+			</p>
+		</div>
+
+	{% endif %}
 
 {% endblock %}
 
