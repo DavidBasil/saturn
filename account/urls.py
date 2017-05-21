@@ -30,6 +30,8 @@ urlpatterns = [
                                     name='password_reset_confirm'),
     url(r'^password-reset/complete/$', password_reset_complete, 
                                         name='password_reset_complete'),
+    # register
+    url('^register/$', views.register, name='register'),
     # dashboard
     url(r'^$', views.dashboard, name='dashboard'),
 ]
