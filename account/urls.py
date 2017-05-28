@@ -34,4 +34,6 @@ urlpatterns = [
     url('^register/$', views.register, name='register'),
     # dashboard
     url(r'^$', views.dashboard, name='dashboard'),
+    # profile edit
+    url(r'^edit/$', views.edit, name='edit'),
 ]
