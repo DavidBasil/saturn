@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+Posts	
+{% endblock %}
+
+{% block content %}
+<h2>All Posts</h2>	
+<div id="post-list">
+	{% include "posts/post/list_ajax.html" %}
+</div>
+{% endblock %}

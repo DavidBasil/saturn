@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 </head>
 <body>
 	<!-- header -->
@@ -18,12 +20,12 @@
 				<a href=" {% url 'dashboard' %}">Dashboard</a>		
 			</li>
 			<!-- images -->
-			<li {% if section == 'images' %}class="selected"{% endif %}>
-				<a href="#">Images</a>	
+			<li {% if section == 'posts' %}class="selected"{% endif %}>
+				<a href="{% url 'posts:list' %}">Posts</a>	
 			</li>
 			<!-- people -->
 			<li {% if section == 'people' %}class="selected"{% endif %}>
-				<a href="#">People</a>	
+				<a href="{% url 'user_list' %}">People</a>	
 			</li>
 		</ul>	
 		{% endif %}
@@ -31,7 +33,7 @@
 		<!-- login/logout -->
 		<span class="user">
 			{% if request.user.is_authenticated %}
-			Hi {{ request.user.first_name }}	
+			Hi {{ request.user.username }}	
 			<a href=" {% url 'logout' %}">Logout</a>
 			{% else %}
 			<a href=" {% url 'login' %}">Login</a>
@@ -45,5 +47,55 @@
 	{% endblock %}	
 	</div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+
+	// cookies
+	var scrftoken = $.cookie('csrftoken')
+	function csrfSafeMethod(method){
+		return(/^(GET|HEAD|OPTIONS|TRACE)$/.test(method))
+	}
+	$.ajaxSetup({
+		beforeSend: function(xhr, settings){
+			if (!csrfSafeMethod(settings.type) && !this.crossDomain){
+				xhr.setRequest.Header("X-CSRFToken", csrftoken)
+			}
+		}
+	})
+$(document).ready(function(){
+	
+	// domready
+
+{% block domready %}
+$('a.like').click(function(e){
+e.preventDefault();
+$.post('{% url "posts:like" %}',
+{
+id: $(this).data('id'),
+action: $(this).data('action')
+},
+function(data){
+if (data['status'] == 'ok')
+{
+var previous_action = $('a.like').data('action');
+// toggle data-action
+$('a.like').data('action', previous_action == 'like' ?
+'unlike' : 'like');
+// toggle link text
+$('a.like').text(previous_action == 'like' ? 'Unlike' :
+'Like');
+// update total likes
+var previous_likes = parseInt($('span.count .total').
+text());
+$('span.count .total').text(previous_action == 'like' ?
+previous_likes + 1 : previous_likes - 1);
+}
+}
+);
+});
+{% endblock %}
+
+</script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Post
+{% endblock %}
+
+{% block content %}
+	
+	{% with total_likes=post.users_like.count users_like=post.users_like.all %}
+		<div class="post-info">
+			<span class="count">
+				<span class="total">{{ total_likes }}</span>
+				like{{ total_likes|pluralize }}
+			</span>	
+			<a href="#" data-id="{{ posts.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
+			{% if request.user not in users_like %}
+			Like	
+			{% else %}
+			Unlike
+			{% endif %}
+			</a>
+		</div>
+		{{ post.body|linebreaks }}
+		<div class="post-likes">
+			{% for user in post.users_like.all %}
+			<div>
+				<img src="{{ user.profile.photo.url }}" alt="" />
+				<p>{{ user.first_name }}</p>
+			</div>
+			{% endfor %}
+		</div>
+	{% endwith %}
+
+
+{% endblock %}

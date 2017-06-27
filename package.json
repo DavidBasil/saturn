@@ -1,0 +1,30 @@
+{
+  "name": "saturn",
+  "version": "1.0.0",
+  "description": "social web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css-compile": "node-sass static/scss -o static/css",
+    "css-watch": "node-sass static/scss -o static/css --watch",
+    "browser-sync": "browser-sync start --files \" ./**/*\" --proxy 127.0.0.1:8000 --reload-delay=300 --reload-debounce=500",
+    "start": "concurrently --kill-others \"npm run css-watch\" \"python manage.py runserver\" \"npm run browser-sync\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidBasil/saturn.git"
+  },
+  "author": "David Basil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidBasil/saturn/issues"
+  },
+  "homepage": "https://github.com/DavidBasil/saturn#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "concurrently": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "node-sass": "^4.5.3"
+  }
+}

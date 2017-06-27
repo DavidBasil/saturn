@@ -7,6 +7,13 @@ Dashboard
 {% block content %}
 
 <h2>Dashboard</h2>	
-<p>Welcome to your dashboard. You can <a href="{% url 'edit' %}">edit your profile</a> or <a href="{% url 'password_change' %}">change your password.</a></p>
+
+{% with total_posts_created=request.user.posts_created.count %}
+<p>Welcome to your dashboard. You have {{ total_posts_created }} post{{ total_posts_created|pluralize}}</p>
+{% endwith %}
+<hr />
+<p> <a href=" {% url 'posts:create' %}">Write a new post</a></p>
+<hr />
+<p>You can <a href="{% url 'edit' %}">edit your profile</a> or <a href="{% url 'password_change' %}">change your password.</a></p>
 
 {% endblock %}
