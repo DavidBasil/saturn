@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .forms import (LoginForm, UserRegistrationForm,
                     UserEditForm, ProfileEditForm)
 from .models import Profile
@@ -80,3 +81,5 @@ def user_detail(request, username):
     return render(request, 'account/user/detail.html',
                                 {'section': 'people',
                                         'user':user})
+
+
